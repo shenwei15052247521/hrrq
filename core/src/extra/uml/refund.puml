@@ -1,0 +1,15 @@
+'用户退费
+
+@startuml
+client -> RefundInterceptor : 退费请求
+RefundInterceptor -> RefundInterceptor : 判断账户状态
+RefundInterceptor --> client : 退费失败返回报文
+RefundInterceptor -> AccountController : 进入退费业务
+AccountController -> AccountService : 转发请求
+AccountService -> AccountMapper : 获得账户信息
+AccountService -> AccountService : 判断退费是否成功
+AccountService -> RecordMapper : 生成退费记录
+AccountService -> TicketMapper : 生成退费凭证
+AccountService --> AccountController : 返回退费结果
+AccountController --> client : 返回退费结果信息给客户端
+@enduml

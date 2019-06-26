@@ -1,0 +1,86 @@
+//查询用户返回的信息
+
+{
+  "msg": "SUCCESS",
+  "data": [
+    {
+      "id": "25a48efdb79549f9a73eb67252a41541",
+      "nickname": "admin的昵称",
+      "username": "admin",
+      "age": 18,
+      "sex": "女",
+      "remark": "飒飒",
+      "status": "已开通",
+      "roles":[
+        {
+          "id":"1",
+          "rolename_zh":"超级管理员",
+          "rolename_en":"ROLE_SUPER_ADMIN"
+        },
+        {
+          "id":"2",
+          "rolename_zh":"测试",
+          "rolename_en":"ROLE_TEST"
+        },
+        {
+          "id":"3",
+          "rolename_zh":"软件部管理人",
+          "rolename_en":"ROLE_SOFTWARE_DEPT_ADMIN"
+        }
+      ]
+  },
+    {
+      "id": "25a48efdb79549f9a73eb67252a41541",
+      "nickname": "admin的昵称",
+      "username": "admin",
+      "age": 18,
+      "sex": "女",
+      "remark": "飒飒",
+      "status": "已开通",
+      "roles":[
+        {
+          "id":"1",
+          "rolename_zh":"超级管理员",
+          "rolename_en":"ROLE_SUPER_ADMIN"
+        },
+        {
+          "id":"2",
+          "rolename_zh":"测试",
+          "rolename_en":"ROLE_TEST"
+        },
+        {
+          "id":"3",
+          "rolename_zh":"软件部管理人",
+          "rolename_en":"ROLE_SOFTWARE_DEPT_ADMIN"
+        }
+      ]
+    },
+    {
+      "id": "25a48efdb79549f9a73eb67252a41541",
+      "nickname": "admin的昵称",
+      "username": "admin",
+      "age": 18,
+      "sex": "女",
+      "remark": "飒飒",
+      "status": "已开通",
+      "roles":[
+        {
+          "id":"1",
+          "rolename_zh":"超级管理员",
+          "rolename_en":"ROLE_SUPER_ADMIN"
+        },
+        {
+          "id":"2",
+          "rolename_zh":"测试",
+          "rolename_en":"ROLE_TEST"
+        },
+        {
+          "id":"3",
+          "rolename_zh":"软件部管理人",
+          "rolename_en":"ROLE_SOFTWARE_DEPT_ADMIN"
+        }
+      ]
+    }
+  ],
+  "status": 200
+}

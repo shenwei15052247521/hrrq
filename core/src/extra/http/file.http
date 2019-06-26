@@ -1,0 +1,17 @@
+# 文件操作相关API
+# @author Jaswine
+
+### (废)上传
+POST http://{{host}}:{{port}}/canteen/file/upload
+Content-Type: multipart/form-data;boundary=webAppBoundary
+
+### (废)下载
+GET http://{{host}}:{{port}}/canteen/file/download?filename=123456789.jpg
+Content-Type: application/json
+
+### 获得时间之后的图片uri(秒级时间戳)
+GET http://{{host}}:{{port}}/canteen/file/filename/15
+Content-Type: application/json
+
+###
+

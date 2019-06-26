@@ -1,0 +1,33 @@
+{
+  "report_id":"mload-201901",
+  "report_type":0,
+  "report_date":"2019-01-25 08:58:35",
+  "report_detail": {
+    "load_count": 100,
+    "load_money": 10000,
+    "ticket_count": 100,
+    "type": [
+      {
+        "type": "现金充值",
+        "count": 80,
+        "load": 8000,
+        "fees": 0,
+        "ticket_count": 80
+      },
+      {
+        "type": "微信充值",
+        "count": 10,
+        "load": 1000,
+        "fees": 3,
+        "ticket_count": 10
+      },
+      {
+        "type": "现金充值",
+        "count": 10,
+        "load": 1000,
+        "fees": 3,
+        "ticket_count": 10
+      }
+    ]
+  }
+}

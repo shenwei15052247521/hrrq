@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanswon.auth.mapper.PermissionMapper">
+    <insert id="addPermission">
+        INSERT INTO sys_permission(id, pid, permission_url,
+                                   permission_name,description,type)
+        VALUE (#{permission.id},#{permission.pid},#{permission.permissionUrl},
+               #{permission.permissionName},#{permission.description},#{permission.type})
+    </insert>
+    <update id="updatePermission">
+        UPDATE sys_permission t
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="permission.pid != null and permission.pid != ''">
+            t.pid = #{permission.pid},
+        </if>
+        <if test="permission.permissionUrl != null and permission.permissionUrl != ''">
+            t.permission_url = #{permission.permissionUrl},
+        </if>
+        <if test="permission.permissionName != null and permission.permissionName != ''">
+            t.permission_name = #{permission.permissionName},
+        </if>
+        <if test="permission.description != null and permission.description != ''">
+            t.description = #{permission.description},
+        </if>
+        </trim>
+        WHERE t.id = #{permission.id}
+    </update>
+    <delete id="delPermission">
+        DELETE FROM sys_permission WHERE id = #{permissionid}
+    </delete>
+    <delete id="delPermission2Role">
+        DELETE FROM sys_role_permission WHERE fk_permission_id = #{permissionid}
+    </delete>
+    <select id="getAllMenusByUserId" resultType="com.lanswon.auth.bean.vo.MenuVO">
+        SELECT DISTINCT * FROM(
+            SELECT t.id AS id,
+                   t.pid AS pid,
+                   t.permission_url AS url ,
+                   t.permission_name AS name
+            FROM sys_permission t
+                     LEFT JOIN sys_role_permission t1 ON t.id = t1.fk_permission_id
+                     LEFT JOIN sys_role_user t2 ON t2.fk_role_id = t1.fk_role_id
+            WHERE t.type = 1 AND t2.fk_user_id = #{uid}
+            ORDER BY t.sort DESC
+        ) AS menus
+
+    </select>
+    <select id="findPermissionsByUserId" resultType="com.lanswon.auth.bean.pojo.Permission">
+        SELECT *
+        FROM sys_permission t
+        LEFT JOIN sys_role_permission t1 ON t.id = t1.fk_permission_id
+        LEFT JOIN sys_role_user t2 ON t2.fk_user_id = #{id}
+    </select>
+    <select id="findRoleAndPermisson" resultType="java.util.Map">
+        SELECT
+               t.permission_url AS url,
+               t2.role_name_zh AS role
+        FROM sys_permission t
+        LEFT JOIN sys_role_permission t1 ON t1.fk_permission_id = t.id
+        LEFT JOIN sys_role t2 ON t1.fk_role_id = t2.id
+    </select>
+    <select id="getPermissionByRoleId" resultType="com.lanswon.auth.bean.pojo.Permission">
+        SELECT t.id AS id,
+               t.pid AS pid,
+               t.permission_url AS permissionUrl,
+               t.permission_name AS permissionName,
+               t.description AS description
+        FROM sys_permission t
+                 LEFT JOIN sys_role_permission t1 ON t.id = t1.fk_permission_id
+        WHERE t1.fk_role_id = #{roleId}
+    </select>
+    <select id="index" resultType="com.lanswon.auth.bean.pojo.Permission">
+        SELECT
+               t.id AS id,
+               t.pid AS pid,
+               t.permission_url AS permissionUrl,
+               t.permission_name AS permissionName
+        FROM sys_permission t
+        WHERE t.type = 1
+    </select>
+    <select id="getPermissionInfo" resultType="com.lanswon.auth.bean.pojo.Permission">
+        SELECT t.id AS id,
+               t.pid AS pid,
+               t.permission_url AS permissionUrl,
+               t.permission_name AS permissionName,
+               t.description AS description
+        FROM sys_permission t
+    </select>
+    <select id="getPermissionInfoById" resultType="com.lanswon.auth.bean.pojo.Permission">
+        SELECT t.id AS id,
+               t.pid AS pid,
+               t.permission_url AS permissionUrl,
+               t.permission_name AS permissionName,
+               t.description AS description
+        FROM sys_permission t
+        WHERE t.id = #{id}
+    </select>
+</mapper>

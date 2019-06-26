@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanswon.auth.mapper.RoleMapper">
+    <insert id="addUserRole">
+        INSERT INTO sys_role_user(fk_user_id, fk_role_id)
+            VALUE (#{user.id}, #{user.roleId})
+    </insert>
+    <insert id="addRoleInfo">
+        INSERT INTO sys_role(id, role_name_zh, role_name_en)
+            VALUE (#{role.id}, #{role.roleNameZH}, #{role.roleNameEN})
+    </insert>
+    <insert id="addRolePermission">
+        INSERT INTO sys_role_permission(fk_role_id, fk_permission_id)
+        VALUES
+        <foreach collection="array" item="item" index="index" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
+    <insert id="roleBindPermission">
+        INSERT INTO sys_role_permission (fk_role_id, fk_permission_id)
+            VALUE (#{map.roleid}, #{map.permissionid});
+    </insert>
+    <update id="updateRole">
+        UPDATE sys_role t
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="role.roleNameZH != null and role.roleNameZH != ''">
+                t.role_name_zh = #{role.roleNameZH},
+            </if>
+            <if test="role.roleNameEN != null and role.roleNameEN != ''">
+                t.role_name_en = #{role.roleNameEN},
+            </if>
+        </trim>
+        WHERE t.id = #{role.id}
+    </update>
+    <delete id="roleUnbindPermission">
+        DELETE
+        FROM sys_role_permission
+        WHERE fk_role_id = #{map.roleid}
+          AND fk_permission_id = #{map.permissionid}
+    </delete>
+    <delete id="delRole">
+        DELETE
+        FROM sys_role
+        WHERE id = #{id}
+    </delete>
+    <delete id="delPermission2Role">
+        DELETE
+        FROM sys_role_permission
+        WHERE fk_role_id = #{id}
+    </delete>
+    <delete id="delRole2User">
+        DELETE
+        FROM sys_role_user
+        WHERE fk_role_id = #{id}
+    </delete>
+
+
+    <select id="findRolesByUserId" resultType="com.lanswon.auth.bean.pojo.Role">
+        SELECT t.id           AS id,
+               t.role_name_zh AS roleNameZH,
+               t.role_name_en AS roleNameEN
+        FROM sys_role t
+                 LEFT JOIN sys_role_user t1 ON t.id = t1.fk_role_id
+        WHERE t1.fk_user_id = #{id}
+    </select>
+    <select id="getRoleInfo" resultType="com.lanswon.auth.bean.pojo.Role">
+        SELECT t.id           AS id,
+               t.role_name_zh AS roleNameZH,
+               t.role_name_en AS roleNameEN
+        FROM sys_role t
+    </select>
+    <select id="getRoleInfoByRoleId" resultType="com.lanswon.auth.bean.pojo.Role">
+        SELECT t.id,
+               t.role_name_en roleNameEN,
+               t.role_name_zh roleNameZH
+        FROM sys_role t
+        WHERE t.id = #{roleId}
+    </select>
+    <select id="hasRoleBundPermission" resultType="java.lang.Boolean">
+        SELECT EXISTS(SELECT fk_role_id
+                      FROM sys_role_permission
+                      WHERE fk_role_id = #{map.roleId}
+                        AND fk_permission_id = #{map.permissionId}
+                   )
+    </select>
+</mapper>

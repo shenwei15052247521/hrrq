@@ -1,0 +1,42 @@
+### 权限相关API
+
+
+### 新增权限相关信息
+POST http://{{host}}:{{port}}/{{context}}/permission
+Content-Type: application/json
+
+{
+  "pid":"",
+  "permissionUrl":"/jkjk/",
+  "permissionName":"新增权限",
+  "description":"新增一个权限",
+  "type":"1"
+}
+
+
+### 删除权限信息
+DELETE http://{{host}}:{{port}}/{{context}}/permission/948e93a68fcd4d36a302a629e58b3676
+Content-Type: application/json
+
+### 修改权限信息
+PUT http://{{host}}:{{port}}/{{context}}/permission
+Content-Type: application/json
+
+{
+  "id":"4456",
+  "pid":"",
+  "permissionUrl":"/test.html",
+  "permissionName":"测试",
+  "description":"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
+  "type":"1"
+}
+
+### 获得权限信息
+GET http://{{host}}:{{port}}/{{context}}/permission
+Content-Type: application/json
+
+### id-->权限信息
+GET http://{{host}}:{{port}}/{{context}}/permission/948e93a68fcd4d36a302a629e58b3676
+Content-Type: application/json
+
+###

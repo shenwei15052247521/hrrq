@@ -1,0 +1,71 @@
+{
+  "report_id":"dpay-20190125",
+  "report_type":1,
+  "report_date":"2019-01-25 08:58:35",
+  "report_detail": {
+    "pay_count": 100,
+    "pay_money": 10000,
+    "month": [
+      {
+        "month": "201801",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201802",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201803",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201804",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201805",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201806",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201807",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201808",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201809",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201810",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201811",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "month": "201812",
+        "count": 80,
+        "pay": 8000
+      }
+    ]
+  }
+}

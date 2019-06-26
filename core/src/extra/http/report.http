@@ -1,0 +1,29 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 报表API测试
+
+
+### 生成日报表
+POST http://{{host}}:{{port}}/canteen/report/day
+Content-Type: application/json
+
+### 生成月报表
+POST http://{{host}}:{{port}}/canteen/report/month
+Content-Type: application/json
+
+### 生成年报表
+POST http://{{host}}:{{port}}/canteen/report/year
+Content-Type: application/json
+
+### 获得日报表信息
+GET http://{{host}}:{{port}}/canteen/report/day/1556436396
+Content-Type: application/json
+
+### 获得月报表信息
+GET http://{{host}}:{{port}}/canteen/report/month/2019-01-18 15:26:36
+Content-Type: application/json
+
+### 获得年报表信息
+GET http://{{host}}:{{port}}/canteen/report/year/2019-01-10 15:26:36
+Content-Type: application/json

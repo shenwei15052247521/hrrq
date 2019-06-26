@@ -1,0 +1,15 @@
+'用户消费
+
+@startuml
+client -> PayInterceptor : 消费请求
+PayInterceptor -> PayInterceptor : 判断账户状态和账户余额
+PayInterceptor --> client : 消费失败返回报文
+PayInterceptor -> AccountController : 进入消费业务
+AccountController -> AccountService : 转发请求
+AccountService -> AccountMapper : 获得账户信息
+AccountService -> AccountService : 判断消费是否成功
+AccountService -> RecordMapper : 生成消费记录
+AccountService -> TicketMapper : 生成消费凭证
+AccountService --> AccountController : 返回消费结果
+AccountController --> client : 返回消费结果信息给客户端
+@enduml

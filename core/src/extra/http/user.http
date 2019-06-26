@@ -1,0 +1,89 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 用户API测试
+
+### 新增用户
+POST http://{{host}}:{{port}}/canteen/user
+Content-Type: application/json
+
+{
+  "userName":"王远志669066",
+  "idCard":"320888888",
+  "sex":"1",
+  "remark":"测试用户",
+  "departmentId":"f90c6d29399e4b41bc180908244dd3bb",
+  "userType": "1"
+}
+
+### 删除用户
+DELETE http://{{host}}:{{port}}/canteen/user/ce364f804886444d95b69ded713471da
+Content-Type: application/json
+
+### 更新用户
+PUT http://{{host}}:{{port}}/canteen/user
+Content-Type: application/json
+
+{
+  "userId":"5466072240184a20aee95b485c2e20e6",
+  "userName":"测试1[改]",
+  "idCard":"320826199311172014",
+  "sex":"1",
+  "remark":"测试用户1",
+  "departmentId":"cc7b1e42a7794b0589227eb9300a418b"
+}
+
+
+### 获得所有用户信息
+GET http://{{host}}:{{port}}/canteen/user
+Content-Type: application/json
+
+### 用户id-->用户信息
+GET http://{{host}}:{{port}}/canteen/user/userId/31fcaf87a9a045e8b263fe487eb2891c
+Content-Type: application/json
+
+
+### 用户名-->用户信息
+GET http://{{host}}:{{port}}/canteen/user/王远志6666
+Content-Type: application/json
+
+### 市民卡号-->用户信息
+GET http://{{host}}:{{port}}/canteen/user/card/2505019390
+Content-Type: application/json
+
+### 绑定市民卡
+PUT http://{{host}}:{{port}}/canteen/user/card
+Content-Type: application/json
+
+{
+  "userId":"31fcaf87a9a045e8b263fe487eb2891c",
+  "smkNo":"2505019390"
+}
+
+### 解绑市民卡
+PUT http://{{host}}:{{port}}/canteen/user/card/31fcaf87a9a045e8b263fe487eb2891c
+Content-Type: application/json
+
+
+### 人脸id-->用户信息
+GET http://{{host}}:{{port}}/canteen/user/face/199311116666
+Content-Type: application/json
+
+
+### 绑定人脸识别
+PUT http://{{host}}:{{port}}/canteen/user/face
+Content-Type: application/json
+
+{
+  "userId":"31fcaf87a9a045e8b263fe487eb2891c",
+  "faceId":"199311116666",
+  "faceUrl":"http://cdn.demo.com/199311116666.png"
+}
+
+### 解绑人脸识别
+PUT http://{{host}}:{{port}}/canteen/user/face/31fcaf87a9a045e8b263fe487eb2891c
+Content-Type: application/json
+
+###
+
+

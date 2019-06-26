@@ -1,0 +1,43 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 部门信息API测试
+
+### 新增部门信息
+POST http://{{host}}:{{port}}/canteen/dept
+Content-Type: application/json
+
+{
+  "departName":"测试测试",
+  "departNum":"9999",
+  "departLocation":"宇宙，在你心里",
+  "departTel":"110"
+}
+
+### 删除部门信息
+DELETE http://{{host}}:{{port}}/canteen/dept/1e4560570f8841cba44d68dc0099cf76
+Content-Type: application/json
+
+### 更新部门信息
+PUT http://{{host}}:{{port}}/canteen/dept
+Content-Type: application/json
+
+{
+  "departmentId":"289a8384d8594cfc9fa544de6b2e3e18",
+  "departName":"测试测试",
+  "departNum":"9999",
+  "departLocation":"宇宙，在你心里[改]",
+  "departTel":"110"
+}
+
+### 获得所有部门信息
+GET http://{{host}}:{{port}}/canteen/dept
+Content-Type: application/json
+
+### 根据部门id获得部门信息
+GET http://{{host}}:{{port}}/canteen/dept/289a8384d8594cfc9fa544de6b2e3e18
+Content-Type: application/json
+
+### 获得部门下拉框
+GET http://{{host}}:{{port}}/canteen/dept/simple
+Content-Type: application/json

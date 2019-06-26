@@ -1,0 +1,234 @@
+
+####################
+#   profiles配置   #
+####################
+
+
+
+#   测试环境   #
+spring:
+  profiles: dev
+  # 数据库 #
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.44.122:3306/canteen?characterEncoding=utf8&useSSL=false
+      username: jasmine
+      password: Jasmine1017@wyz
+  # Redis #
+  redis:
+    host: 47.105.74.250
+    database: 3
+    port: 6379
+    password: Jasmine1017@wyz
+  # RabbitMQ #
+  rabbitmq:
+    host: 192.168.44.122
+    port: 5672
+    username: guest
+    password: guest`
+    virtual-host: /
+# FTP #
+ftp:
+  ip: 192.168.44.120
+  port: 21
+  username: ftpadmin
+  password: 123456
+---
+#   正式环境   #
+spring:
+  profiles: pro
+  # 数据库 #
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/canteen?characterEncoding=utf8&useSSL=false
+      username: smk
+      password: GoodLuck_SMK_2019
+  # Redis #
+  redis:
+    host: 127.0.0.1
+    database: 3
+    port: 6379
+    password: 123
+  # RabbitMQ #
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+# FTP #
+ftp:
+  ip: 127.0.0.1
+  port: 21
+  username: ftpadmin
+  password: 123456
+---
+##################
+#   App信息配置   #
+##################
+spring:
+  application:
+    name: CORE_SERVER
+---
+#################
+#   eureka配置   #
+#################
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://192.168.44.222:7000/eureka
+---
+#################
+#   服务器配置   #
+#################
+server:
+  servlet:
+    context-path: /canteen
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-post-size: 0
+  port: 9000
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 15MB
+---
+###############
+#   日志配置   #
+###############
+spring:
+  output:
+    ansi:
+      enabled: always
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+debug: false
+logging:
+  file:
+    max-size: 10MB
+  level:
+    root: info
+---
+######################
+#   数据库连接池配置   #
+######################
+spring:
+  datasource:
+    druid:
+      max-active: 10
+      initial-size: 5
+      min-idle: 2
+      max-wait: 60000
+      pool-prepared-statements: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /druid
+
+mybatis:
+  #  config-location: classpath:mappers/mybatis.xml
+  mapper-locations: classpath:mappers/*.xml
+  check-config-location: true
+  type-aliases-package: com.lanswon.core.bean
+  configuration:
+    jdbc-type-for-null: null
+    cache-enabled: false
+    multiple-result-sets-enabled: true
+    default-executor-type: reuse
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    default-statement-timeout: 3000
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: partial
+    auto-mapping-unknown-column-behavior: none
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    return-instance-for-empty-row: false
+    local-cache-scope: session
+
+pagehelper:
+  auto-dialect: true
+  close-conn: false
+  reasonable: true
+---
+###############
+#   AOP配置   #
+###############
+spring:
+     aop:
+       auto: true
+       proxy-target-class: false
+---
+##################
+#   NO_SQL配置   #
+##################
+
+#   Redis   #
+spring:
+  redis:
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+    timeout: 5000
+
+---
+####################
+#   Actuator配置   #
+####################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: false
+---
+####################
+#   JackSon配置   #
+####################
+#spring:
+#  jackson:
+#    mapper: [ALLOW_UNQUOTED_FIELD_NAMES: true, ALLOW_SINGLE_QUOTES: true]
+---
+###################
+#   消息队列配置   #
+###################
+
+# Rabbit MQ #
+#spring:
+#  rabbitmq:
+#    host: 192.168.44.122
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+---
+#####################
+#   文件服务器配置   #
+#####################
+
+#   FTP   #
+ftp:
+  downloadSleep: 100 #文件下载失败下次超时重试时间
+  downloadRetry: 10 #文件下载失败重试次数
+  uploadSleep: 100 #文件上传失败下次超时重试时间
+  uploadRettry: 10  #文件上传失败重试次数
+  filepath: /var/www/face/
+
+---
+#localPath: C:\Users\cxf\Desktop\
+#localPath: /home/storage/
+localPath: /Users/chenwei/Downloads/
+

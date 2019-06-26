@@ -1,0 +1,58 @@
+#后台用户操作API
+
+### 新增
+POST http://{{host}}:{{port}}/{{context}}/user
+Content-Type: application/json
+
+{
+  "username":"admin",
+  "nickname":"admin的昵称",
+  "password":"123456789",
+  "age":18,
+  "sex":1,
+  "remark":"是系统的测试"
+}
+
+### 删除
+DELETE http://{{host}}:{{port}}/{{context}}/user/{userid}
+Content-Type: application/json
+
+### 修改
+PUT http://{{host}}:{{port}}/{{context}}/user
+Content-Type: application/json
+
+{
+  "id":"454564",
+  "username":"admin",
+  "nickname":"admin的昵称",
+  "password":"123456789",
+  "age":18,
+  "sex":1,
+  "remark":"是系统的测试"
+}
+
+### 查找
+GET http://{{host}}:{{port}}/{{context}}/user
+Content-Type: application/json
+
+### id-->查找
+GET http://{{host}}:{{port}}/{{context}}/user/189b6972854445e1ab5c1956995a4882
+Content-Type: application/json
+
+### 绑定角色
+POST http://{{host}}:{{port}}/{{context}}/user/role
+Content-Type: application/json
+
+{
+  "userid":"564441",
+  "roleid":"154612"
+}
+
+### 解绑角色
+DELETE http://{{host}}:{{port}}/{{context}}/user/role
+Content-Type: application/json
+
+{
+  "userid":"564441",
+  "roleid":"154612"
+}

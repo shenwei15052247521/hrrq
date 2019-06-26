@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanswon.core.mapper.RecordMapper">
+
+    <insert id="addLoadRecord">
+        INSERT INTO record_load(record_id,
+                                record_acct_id,
+                                record_load,
+                                record_bf_load,
+                                record_af_load,
+                                record_load_datetime,
+                                record_load_deviceid,
+                                record_load_type,
+                                record_sysuser_id,
+                                record_ticket_seq)
+        VALUES (#{recordLoad.recordId},
+                #{recordLoad.recordAcctId},
+                #{recordLoad.recordLoad},
+                #{recordLoad.recordBfLoad},
+                #{recordLoad.recordAfLoad},
+                sysdate(),
+                #{recordLoad.recordLoadDeviceid},
+                #{recordLoad.recordLoadType},
+                #{recordLoad.recordSysuserId},
+                #{recordLoad.recordTicketSeq})
+    </insert>
+
+    <insert id="addRefundRecordDao">
+        INSERT INTO record_refund(record_id,
+                                  record_acct_id,
+                                  record_bf_refund,
+                                  record_af_refund,
+                                  record_ref_datetime,
+                                  record_money,
+                                  record_ref_req_user,
+                                  record_ref_ticket_seq,
+                                  record_ref_type,
+                                  record_ref_deviceid)
+        VALUES (#{refundRecord.recordId},
+                #{refundRecord.recordAcctId},
+                #{refundRecord.recordBfRefund},
+                #{refundRecord.recordAfRefund},
+                sysdate(),
+                #{refundRecord.recordMoney},
+                #{refundRecord.recordRefReqUser},
+                #{refundRecord.recordRefTicketSeq},
+                #{refundRecord.recordType},
+                #{refundRecord.recordRefDeviceId})
+    </insert>
+    <insert id="addPayRecord">
+        INSERT INTO record_purchase(record_id,
+                                    record_acct_id,
+                                    record_pur,
+                                    record_bf_pur,
+                                    record_af_pur,
+                                    record_pur_datetime,
+                                    record_pur_deviceid,
+                                    record_pur_type,
+                                    record_ticket_seq)
+        VALUES (#{payRecord.recordId},
+                #{payRecord.recordAcctId},
+                #{payRecord.recordPur},
+                #{payRecord.recordBfPur},
+                #{payRecord.recordAfPur},
+                sysdate(),
+                #{payRecord.recordPurDeviceid},
+                #{payRecord.recordPurType},
+                #{payRecord.recordTicketSeq})
+    </insert>
+    <select id="getAllPayRecordInfo" resultType="com.lanswon.core.bean.vo.StatementVO">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '消费'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.userName != null and queryRecordDTO.userName != ''">
+            AND t.userName like concat('%',#{queryRecordDTO.userName},'%')
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+    <select id="getAllPayRecordVoInfo" resultType="com.lanswon.core.bean.vo.RecordEntityVo">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '消费'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+    <select id="getAllLoadRecordInfo" resultType="com.lanswon.core.bean.vo.StatementVO">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '充值'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.userName != null and queryRecordDTO.userName != ''">
+            AND t.userName like concat('%',#{queryRecordDTO.userName},'%')
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+    <select id="getAllLoadRecordVoInfo" resultType="com.lanswon.core.bean.vo.RecordEntityVo">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '充值'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+
+    <select id="getAllRefundRecordInfo" resultType="com.lanswon.core.bean.vo.StatementVO">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '退费'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.userName != null and queryRecordDTO.userName != ''">
+            AND t.userName like concat('%',#{queryRecordDTO.userName},'%')
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+    <select id="getAllRefundRecordVoInfo" resultType="com.lanswon.core.bean.vo.RecordEntityVo">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1 AND typt = '退费'
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+
+    <select id="getAllRecordInfo" resultType="com.lanswon.core.bean.vo.StatementVO">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime >= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.userName != null and queryRecordDTO.userName != ''">
+            AND t.userName like concat('%',#{queryRecordDTO.userName},'%')
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+
+    </select>
+
+
+    <select id="getAllRecordVoInfo" resultType="com.lanswon.core.bean.vo.RecordEntityVo">
+        SELECT
+        t.typt,
+        t.recordTime,
+        t.acctId,
+        t.bfBalance,
+        t.balance,
+        t.afBalance,
+        t.type,
+        t.userName,
+        t.department,
+        t.deviceId,
+        t.seq
+        FROM statement t
+        WHERE 1 = 1
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime >= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+        ORDER BY t.recordTime DESC
+    </select>
+
+
+    <select id="getRecordCount" resultType="com.lanswon.core.bean.vo.StatementCountVO">
+        SELECT
+               t.typt,
+               min(t.recordTime) AS starTime,
+               max(t.recordTime) AS endTime,
+               count(t.userName) AS transCountNum,
+               ifnull(sum(t.balance),0.00) AS transCountMoney
+        FROM statement t
+        LEFT JOIN record_ticket t1 ON t.seq = t1.ticket_seq_id
+        WHERE 1 = 1
+        <if test="queryRecordDTO.type != null and queryRecordDTO.type !='' ">
+            AND t1.ticket_type = #{queryRecordDTO.type}
+        </if>
+        <if test="queryRecordDTO.starTime != null ">
+            AND t.recordTime &gt;= #{queryRecordDTO.starTime}
+        </if>
+        <if test="queryRecordDTO.endTime != null ">
+            AND t.recordTime &lt;= #{queryRecordDTO.endTime}
+        </if>
+        <if test="queryRecordDTO.moneyType != null and queryRecordDTO.moneyType != ''">
+            AND t.type = #{queryRecordDTO.moneyType}
+        </if>
+        <if test="queryRecordDTO.acctId != null and queryRecordDTO.acctId != ''">
+            AND t.acctId = #{queryRecordDTO.acctId}
+        </if>
+        <if test="queryRecordDTO.departmentId != null and queryRecordDTO.departmentId != ''">
+            AND t.departmentid = #{queryRecordDTO.departmentId}
+        </if>
+        <if test="queryRecordDTO.ticketSeq != null and queryRecordDTO.ticketSeq != ''">
+            AND t.seq = #{queryRecordDTO.ticketSeq}
+        </if>
+           GROUP BY t.typt
+    </select>
+
+    <select id="getDailyPayInfoByDeviceId" resultType="com.lanswon.core.bean.po.PayInfoPO">
+        SELECT
+               t.record_pur_deviceid AS deviceId ,
+               count(t.record_id) AS payTimeCount,
+               ifnull(sum(t.record_pur),0.00) AS payMoneyCount
+        FROM record_purchase t
+        LEFT JOIN device t1 ON t.record_pur_deviceid = t1.device_id
+        WHERE 1 = 1
+          AND date(t.record_pur_datetime) = date(now())
+          AND t.record_pur_deviceid = #{deviceId}
+    </select>
+    <select id="getDailyLoadCount" resultType="com.lanswon.core.bean.po.LoadReportDetailPO">
+        SELECT count(t.record_id) AS loadCount,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE date(t.record_load_datetime) = date(now())
+    </select>
+    <select id="getDailyLoadCountByCash" resultType="java.lang.Double">
+        SELECT ifnull(sum(t.record_load),0.00) AS totalCash
+        FROM record_load t
+        WHERE t.record_load_type = 0
+        AND date(t.record_load_datetime) = date(now())
+    </select>
+    <select id="getDailyLoadCountByWechat" resultType="java.lang.Double">
+        SELECT ifnull(sum(t.record_load),0.00) AS totalWechat
+        FROM record_load t
+        WHERE t.record_load_type = 2
+          AND date(t.record_load_datetime) = date(now())
+    </select>
+    <select id="getDailyLoadCountByAlipay" resultType="java.lang.Double">
+        SELECT ifnull(sum(t.record_load),0.00) AS totalAlipay
+        FROM record_load t
+        WHERE t.record_load_type = 1
+          AND date(t.record_load_datetime) = date(now())
+    </select>
+    <select id="getDailyLoadInfoByMoneyType" resultType="com.lanswon.core.bean.po.LoadInfo">
+        SELECT case(t.record_load_type) WHEN 0 THEN '现金' WHEN 1 THEN '支付宝' WHEN 2 THEN '微信' END AS type,
+               count(t.record_id) AS count,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               ifnull(sum(t.record_load)*0.003,0.00) AS fees,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE t.record_load_type = #{i}
+          AND date(t.record_load_datetime) = date(now())
+    </select>
+    <select id="getMonthlyPayInfoByDeviceId" resultType="com.lanswon.core.bean.po.PayInfoPO">
+        SELECT
+               t.record_pur_deviceid AS deviceId ,
+               count(t.record_id) AS payTimeCount,
+               ifnull(sum(t.record_pur),0.00) AS payMoneyCount
+        FROM record_purchase t
+                 LEFT JOIN device t1 ON t.record_pur_deviceid = t1.device_id
+        WHERE 1 = 1
+          AND date_format(t.record_pur_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+          AND t.record_pur_deviceid = #{deviceId}
+    </select>
+    <select id="getYearPayInfoByDeviceId" resultType="com.lanswon.core.bean.po.PayInfoPO">
+       SELECT
+	date_format( t.record_pur_datetime, '%Y-%m' ) AS months,
+	t.record_pur_deviceid AS deviceId,
+	count( t.record_id ) AS payTimeCount,
+	ifnull( sum( t.record_pur ), 0.00 ) AS payMoneyCount
+    FROM
+	record_purchase t
+	LEFT JOIN device t1 ON t.record_pur_deviceid = t1.device_id
+    WHERE
+	  1 = 1
+	  AND date_format( t.record_pur_datetime, '%Y' ) = date_format( now( ), '%Y' )
+      AND t.record_pur_deviceid = #{deviceId}
+    GROUP BY
+	  months
+    </select>
+    <select id="getMonthlyLoadCount" resultType="com.lanswon.core.bean.po.LoadReportDetailPO">
+        SELECT count(t.record_id) AS loadCount,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE date_format(t.record_load_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyLoadCountByCash" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load),0.00) AS totalCash
+        FROM record_load t
+        WHERE t.record_load_type = 0
+          AND date_format(t.record_load_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyLoadCountByWechat" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load),0.00) AS totalWechat
+        FROM record_load t
+        WHERE t.record_load_type = 2
+          AND date_format(t.record_load_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyLoadCountByAlipay" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load) ,0.00) AS totalAlipay
+        FROM record_load t
+        WHERE t.record_load_type = 1
+          AND date_format(t.record_load_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyLoadInfoByMoneyType" resultType="com.lanswon.core.bean.po.LoadInfo">
+        SELECT case(t.record_load_type) WHEN 0 THEN '现金' WHEN 1 THEN '支付宝' WHEN 2 THEN '微信' END AS type,
+               count(t.record_id) AS count,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE t.record_load_type = #{i}
+          AND date_format(t.record_load_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getYearLoadCountByCash" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load),0.00) AS totalCash
+        FROM record_load t
+        WHERE t.record_load_type = 0
+          AND date_format(t.record_load_datetime,'%Y') = date_format(now(),'%Y')
+    </select>
+    <select id="getYearLoadCountByWechat" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load),0.00) AS totalWechat
+        FROM record_load t
+        WHERE t.record_load_type = 2
+          AND date_format(t.record_load_datetime,'%Y') = date_format(now(),'%Y')
+    </select>
+    <select id="getYearLoadCountByAlipay" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_load),0.00) AS totalAlipay
+        FROM record_load t
+        WHERE t.record_load_type = 1
+          AND date_format(t.record_load_datetime,'%Y') = date_format(now(),'%Y')
+    </select>
+    <select id="getYearLoadInfoByMoneyType" resultType="com.lanswon.core.bean.po.LoadInfo">
+        SELECT case(t.record_load_type) WHEN 0 THEN '现金' WHEN 1 THEN '支付宝' WHEN 2 THEN '微信' END AS type,
+               count(t.record_id) AS count,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE t.record_load_type = #{i}
+          AND date_format(t.record_load_datetime,'%Y-%m') = #{months}
+    </select>
+    <select id="getYearLoadCount" resultType="com.lanswon.core.bean.po.LoadReportDetailPO">
+       SELECT
+                date_format( t.record_load_datetime, '%Y-%m' ) AS months,
+                count(t.record_id) AS loadCount,
+               ifnull(sum(t.record_load),0.00) AS loadMoney,
+               count(t.record_ticket_seq) AS ticketCount
+        FROM record_load t
+        WHERE date_format(t.record_load_datetime,'%Y') = date_format(now(),'%Y')
+				GROUP BY
+	months
+    </select>
+    <select id="getRefRefundRecordByAcctId"
+            resultType="com.lanswon.core.bean.pojo.RecordRefund">
+        SELECT t.*
+        FROM record_refund t ,account t1
+        WHERE t1.acct_status = 3
+        ORDER BY t.record_ref_datetime DESC
+        LIMIT 1
+    </select>
+    <select id="getDailyReqRefundCount" resultType="com.lanswon.core.bean.po.RefundReportPO">
+        SELECT count(t.record_id) AS totalReqRefund,
+               ifnull(sum(t.record_money),0.00) AS totalReqRefundMoney,
+               count(t.record_ref_ticket_seq) AS totalReqRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 3
+        AND date(t.record_ref_datetime) = date(now())
+    </select>
+    <select id="getDailyConfirmRefund" resultType="java.lang.Integer">
+        SELECT
+               count(t.record_id) AS totalConfirmRefund
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date(t.record_ref_datetime) = date(now())
+    </select>
+    <select id="getDailyHaveRefunMoney" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_money),0.00) AS totalHaveRefundMoney
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date(t.record_ref_datetime) = date(now())
+    </select>
+    <select id="getDailyConfirmRefundTicket" resultType="java.lang.Integer">
+        SELECT
+               count(t.record_id) AS totalConfirmRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date(t.record_ref_datetime) = date(now())
+    </select>
+    <select id="getMonthlyReqRefundCount" resultType="com.lanswon.core.bean.po.RefundReportPO">
+        SELECT count(t.record_id) AS totalReqRefund,
+               ifnull(sum(t.record_money),0.00) AS totalReqRefundMoney,
+               count(t.record_ref_ticket_seq) AS totalReqRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 3
+          AND date_format(t.record_ref_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyConfirmRefund" resultType="java.lang.Integer">
+        SELECT count(t.record_id) AS totalConfirmRefund
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyHaveRefunMoney" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_money),0.00) AS totalHaveRefundMoney
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getMonthlyConfirmRefundTicket" resultType="java.lang.Integer">
+        SELECT
+               count(t.record_id) AS totalConfirmRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+    <select id="getYearReqRefundCount" resultType="com.lanswon.core.bean.po.RefundReportPO">
+        SELECT
+              date_format( t.record_ref_datetime, '%Y-%m' ) AS months,
+	          count(t.record_id) AS totalReqRefund,
+               ifnull(sum(t.record_money),0.00) AS totalReqRefundMoney,
+               count(t.record_ref_ticket_seq) AS totalReqRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 3
+          AND date_format(t.record_ref_datetime,'%Y') = date_format(now(),'%Y')
+		GROUP BY
+			  months
+    </select>
+    <select id="getYearConfirmRefund" resultType="java.lang.Integer">
+        SELECT
+               count(t.record_id) AS totalConfirmRefund
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = #{months}
+    </select>
+    <select id="getYearHaveRefunMoney" resultType="java.lang.Double">
+        SELECT
+               ifnull(sum(t.record_money),0.00) AS totalHaveRefundMoney
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = #{months}
+    </select>
+    <select id="getYearConfirmRefundTicket" resultType="java.lang.Integer">
+        SELECT count(t.record_id) AS totalConfirmRefundTicket
+        FROM record_refund t
+                 LEFT JOIN account t1 ON t.record_acct_id = t1.acct_id
+        WHERE t1.acct_status = 4
+          AND date_format(t.record_ref_datetime,'%Y-%m') = #{months}
+    </select>
+    <select id="DailyLoadDeatil" resultType="com.lanswon.core.bean.po.LoadDetail">
+        SELECT
+        t.recordTime,
+        t.balance,
+        t.type,
+        t.userName,
+        t.department
+        FROM
+        statement t
+        WHERE
+        1 = 1
+        AND typt = '充值'
+        AND date( t.recordTime ) = date( now( ) )
+    </select>
+    <select id="PayDetail" resultType="com.lanswon.core.bean.po.PayDetail">
+        SELECT
+	    t.recordTime,
+    	t.balance,
+	    t.type,
+	    t.userName,
+	    t.department
+        FROM
+	    statement t
+        WHERE
+	    1 = 1
+	    AND typt = '消费'
+	    AND date( t.recordTime ) = date( now( ) )
+
+
+
+    </select>
+    <select id="refundDetail" resultType="com.lanswon.core.bean.po.RefundDetail">
+         SELECT
+	    t.recordTime,
+    	t.balance,
+	    t.type,
+	    t.userName,
+	    t.department
+        FROM
+	    statement t
+	    WHERE 1 = 1
+	    AND typt = '退费'
+	    AND date( t.recordTime ) = date( now( ) )
+
+    </select>
+</mapper>

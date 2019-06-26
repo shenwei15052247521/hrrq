@@ -1,0 +1,47 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 金额API测试
+
+
+### 开户
+PUT http://{{host}}:{{port}}/canteen/account/start/9a34e990594f49d48b505a93732fb4ac
+Content-Type: application/json
+
+
+### 消费
+PUT http://{{host}}:{{port}}/canteen/account/pay
+Content-Type: application/json
+token:60e4e98acfd74ccd9c84e4232a7a8c54
+
+{
+  "money":"2.22",
+  "smkid":"2505019390",
+  "faceid":"",
+  "deviceId":"8a45a4ad623044478d537273277e28e8"
+}
+
+### 充值
+PUT http://{{host}}:{{port}}/canteen/account/load
+Content-Type: application/json
+
+{
+  "acctId":"5790f967a89041668887b517dd5ab1a9",
+  "money":"5.55",
+  "deviceId":"56f03d0f28944883b6bf5998fa4ae2a2",
+  "reqUserId":"f123f51f945940ca86613fa38bc102d9",
+  "loadType":"1"
+}
+
+### 退费
+PUT http://{{host}}:{{port}}/canteen/account/refund
+Content-Type: application/json
+
+{
+  "acctId":"3251263cf3f94169abd1d9c0218cab31",
+  "reqUserId":"f123f51f945940ca86613fa38bc102d9",
+  "moneyType":"2",
+  "deviceId":"8a45a4ad623044478d537273277e28e8"
+}
+
+###

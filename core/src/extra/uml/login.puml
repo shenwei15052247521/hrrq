@@ -1,0 +1,11 @@
+'用户登录
+
+@startuml
+client -> authFilter: 登录请求
+authFilter -> Controller:
+Controller -> Service :
+Service -> Mapper :
+Service <-- Mapper :
+Controller <-- Service :
+client <-- Controller :
+@enduml

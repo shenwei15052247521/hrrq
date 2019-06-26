@@ -1,0 +1,47 @@
+'绑定/解绑人脸
+
+
+@startuml
+
+participant 客户端 #BA55D3
+participant CoreServer #2E8B57
+participant FtpServer #1E90FF
+
+autonumber
+opt 绑定人脸
+    客户端 -> CoreServer: 人脸图片，faceId
+    activate CoreServer
+    CoreServer -> FtpServer: 上传文件到FTP
+    activate FtpServer
+    alt 成功上传
+        FtpServer --> CoreServer : 上传成功
+        CoreServer -> CoreServer : 绑定相关信息
+        CoreServer--> 客户端 : 绑定人脸成功
+    else 上传失败
+        FtpServer --> CoreServer : 上传失败
+        CoreServer--> 客户端 : 绑定人脸失败(失败原因)
+    end
+    deactivate FtpServer
+    deactivate CoreServer
+end
+
+opt 解绑人脸
+
+    客户端 -> CoreServer : 人脸id
+    activate CoreServer
+    CoreServer -> FtpServer : 图片URI
+    activate FtpServer
+    FtpServer -> FtpServer : 删除图片
+    alt 删除成功
+        FtpServer --> CoreServer : 删除成功
+        CoreServer--> 客户端 : 删除人脸成功
+    else 删除失败
+        FtpServer --> CoreServer : 删除失败(失败原因)
+         CoreServer--> 客户端 : 删除人脸失败
+    end
+    deactivate FtpServer
+    deactivate CoreServer
+
+end
+
+@enduml

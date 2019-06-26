@@ -1,0 +1,32 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 管理员API测试
+
+### register sysuer(注册系统用户)
+POST http://{{host}}:{{port}}/canteen/admin
+Content-Type: application/json
+
+{
+  "userName":"ndy",
+  "password":"000000",
+  "nickName":"你大爷",
+  "age":"20",
+  "sex":"0",
+  "remark":""
+}
+
+### login(登录)
+POST http://{{host}}:{{port}}/canteen/admin/login
+Content-Type: application/json
+
+{
+  "userName":"xdy",
+  "password":"000000"
+}
+
+###
+
+GET http://{{host}}:{{port}}/canteen/xxx
+
+###

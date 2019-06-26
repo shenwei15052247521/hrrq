@@ -1,0 +1,36 @@
+# Security相关API
+# 权限控制 & 登录 & 登出
+
+
+
+### 登录
+#POST http://{{host}}:{{port}}/{{context}}/login
+POST http://222.132.48.116:3440/auth/login
+Content-Type: application/json
+
+{
+  "username":"test1",
+  "password":"000000"
+}
+
+
+### 新增用户(管理员)
+POST http://{{host}}:{{port}}/{{context}}/addUser
+Content-Type: application/json
+
+{
+  "username":"test2",
+  "password":"000000",
+  "age":18,
+  "sex":1,
+  "remark":"测试使用",
+  "nickname":"王远志_测试",
+  "roleId":"1"
+}
+
+
+### 获得所有菜单
+GET http://{{host}}:{{port}}/{{context}}/index/menu/2
+Content-Type: application/json
+
+###

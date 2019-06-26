@@ -1,0 +1,94 @@
+{
+  "repoet_id":"yload-2019",
+  "report_type":0,
+  "report_date":"2019-01-25 08:59:36",
+  "report_detail": {
+    "cash_load": 1000,
+    "wechat_load": 1000,
+    "alipay_load": 1000,
+    "fees": 72,
+    "gener_date": "2019-10-10 12:12:12",
+    "months": [
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      },
+      {
+        "month": "201801",
+        "cash_count": 100,
+        "cash_load": 1000,
+        "wechat_count": 12,
+        "wechat_load": 160,
+        "alipay_count": 20,
+        "alipay_load": 200,
+        "ticket_count": 6000
+      }
+    ]
+  }
+}

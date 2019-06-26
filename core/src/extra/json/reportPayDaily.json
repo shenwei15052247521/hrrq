@@ -1,0 +1,36 @@
+{
+  "report_id":"mpay-20190125",
+  "report_type":1,
+  "report_date":"2019-01-25 08:58:35",
+  "report_detail": {
+    "pay_count": 100,
+    "pay_money": 10000,
+    "devices": [
+      {
+        "id": "001",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "id": "001",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "id": "001",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "id": "001",
+        "count": 80,
+        "pay": 8000
+      },
+      {
+        "id": "001",
+        "count": 80,
+        "pay": 8000
+      }
+    ]
+  }
+}

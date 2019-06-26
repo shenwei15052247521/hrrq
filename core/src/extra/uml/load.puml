@@ -1,0 +1,50 @@
+'用户充值
+
+@startuml
+participant client #BA55D3
+participant RefundInterceptor #2E8B57
+participant AccountController #1E90FF
+participant AccountService #1E90FF
+participant AccountMapper #1E90FF
+participant RecordMapper #1E90FF
+participant TicketMapper #1E90FF
+
+autonumber
+
+client -> RefundInterceptor : 充值请求
+activate RefundInterceptor
+RefundInterceptor -> RefundInterceptor : 判断是否满足充值条件
+note right: 1.账户是否是启用状态 2.充值后是否大于最大值(999.99) 3.
+alt 不符合要求
+    RefundInterceptor --> client : 不符合要求
+else 符合要求
+    RefundInterceptor -> AccountController : 进入业务处理
+    deactivate RefundInterceptor
+end
+    AccountController -> AccountService : 转发请求
+    activate AccountService
+
+alt 充值成功
+    AccountService -> AccountMapper : 充值账户
+    AccountMapper --> AccountService : 充值成功
+    AccountService -> RecordMapper : 生成充值记录
+    RecordMapper --> AccountService : 生成充值记录成功
+    AccountService -> TicketMapper : 生成充值凭证
+    TicketMapper --> AccountService : 生成充值凭证成功
+
+    AccountService --> AccountController : 充值成功
+    AccountController --> client : 充值成功
+else 充值失败
+    AccountService -> AccountMapper : 充值账户
+    AccountMapper --> AccountService : 充值账户返回信息
+    AccountService -> RecordMapper : 生成充值记录
+    RecordMapper --> AccountService : 生成充值记录返回信息
+    AccountService -> TicketMapper : 生成充值凭证
+    TicketMapper --> AccountService : 生成充值凭证返回信息
+
+    AccountService -> AccountService : 回滚操作
+    AccountService --> AccountController : 充值失败
+    AccountController --> client : 充值失败
+    deactivate AccountService
+end
+@enduml

@@ -1,0 +1,14 @@
+{
+  "report_id":"dload-20190125",
+  "report_type":2,
+  "report_date":"2019-01-25 08:58:35",
+  "report_detail": {
+    "apply_refund_count": 100,
+    "confirm_refund_count": 100,
+    "apply_refund_money": 10000,
+    "confirm_refund_money": 10000,
+    "none_refund_money":1000,
+    "apply_ticket_count": 100,
+    "confirm_ticket_count": 100
+  }
+}

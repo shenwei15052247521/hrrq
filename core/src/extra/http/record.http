@@ -1,0 +1,21 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 记录API测试
+
+
+### 获得交易记录
+POST http://{{host}}:{{port}}/canteen/record
+Content-Type: application/json
+
+{
+  "type":"",
+  "starTime":"",
+  "endTime":"",
+  "moneyType":"",
+  "acctId":"",
+  "departmentId":"",
+  "ticketSeq":""
+}
+
+###

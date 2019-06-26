@@ -1,0 +1,52 @@
+### 角色相关API
+
+### 新增角色
+POST http://{{host}}:{{port}}/{{context}}/role
+Content-Type: application/json
+
+{
+  "roleNameZH":"超级管理员——test",
+  "roleNameEN":"ROLE_SUPER_ADMIssN1"
+}
+
+### 删除角色
+DELETE http://{{host}}:{{port}}/{{context}}/role/fd14062883c8455097776da3111dd16a
+Content-Type: application/json
+
+### 修改角色
+PUT http://{{host}}:{{port}}/{{context}}/role
+Content-Type: application/json
+
+{
+  "id":"1",
+  "roleNameZH":"超级管理ss员_xiug",
+  "roleNameEN":"ROLE_SUPsER_ADMIN1ss"
+}
+
+### 获得角色
+GET http://{{host}}:{{port}}/{{context}}/role
+Content-Type: application/json
+
+
+### roleid-->role信息
+GET http://{{host}}:{{port}}/{{context}}/role/1
+Content-Type: application/json
+
+
+### role绑定permission
+POST http://{{host}}:{{port}}/{{context}}/role/permission
+Content-Type: application/json
+
+{
+  "roleid":"9da24b134b6943708377bbdfe2ebabf7",
+  "permissionid":"9507b2f66a4749fc87e477bdb6cecc68"
+}
+
+### role解绑permission
+DELETE http://{{host}}:{{port}}/{{context}}/role/permission
+Content-Type: application/json
+
+{
+  "roleId":"1",
+  "permissionId":"c2b2fb392a6d4306ba46829b7889816d"
+}

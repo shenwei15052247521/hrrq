@@ -1,0 +1,108 @@
+'用户/账户管理
+
+@startuml
+participant client #BA55D3
+participant UserController #2E8B57
+participant UserService #1E90FF
+participant AccountController #1E90FF
+participant AccountService #1E90FF
+participant AccountMapper #1E90FF
+participant UserMapper #1E90FF
+participant SysParams #1E90FF
+
+autonumber
+
+opt 新增用户
+    client -> UserController : 用户信息
+    UserController -> UserService : 转发请求
+    activate UserService
+    alt 新增用户成功
+        UserService -> UserMapper : 新增用户
+        UserMapper --> UserService : 新增用户返回信息
+        UserService -> SysParams : 查询账户默认年限
+        SysParams --> UserService : 默认年限
+        UserService -> AccountMapper : 新增账户(加上默认年限)
+        note right : 账户初始化时状态为未激活
+        AccountMapper --> UserService :新增账户返回信息
+        UserService --> UserController : 新增用户成功
+        UserController --> client : 新增用户成功
+    else 新增用户失败
+        UserService -> UserMapper : 新增用户
+        UserMapper --> UserService : 新增用户返回信息
+        UserService -> SysParams : 查询账户默认年限
+        SysParams --> UserService : 默认年限
+        UserService -> AccountMapper : 新增账户(加上默认年限)
+        AccountMapper --> UserService :新增账户返回信息
+        UserService -> UserService : 回滚操作
+
+        UserService --> UserController : 新增用户失败
+        deactivate UserService
+        UserController --> client : 新增用户失败
+    end
+end
+
+opt 激活用户
+    client -> AccountController : 激活账户
+    AccountController -> AccountService : 转发请求
+    activate AccountService
+    AccountService -> UserMapper : 查询当前用户有效期
+    UserMapper --> AccountService : 账户有效期
+    AccountService -> AccountMapper : 激活账户
+    note left : 将账户状态修改成激活状态
+    AccountMapper --> AccountService : 激活成功
+    AccountService --> AccountController : 激活成功
+    deactivate AccountService
+    AccountController --> client : 激活成功
+    deactivate AccountService
+end
+
+opt 冻结账户
+    client -> AccountController : 冻结账户
+    AccountController -> AccountService : 转发请求
+    activate AccountService
+    AccountService -> AccountMapper : 冻结账户
+    note left : 将账户状态修改成冻结状态
+    AccountMapper --> AccountService : 冻结账户成功
+    AccountService --> AccountController : 冻结账户成功
+    deactivate AccountService
+    AccountController --> client : 冻结账户成功
+end
+
+opt 解冻账户
+    client -> AccountController : 解冻账户
+    AccountController -> AccountService : 转发请求
+    activate AccountService
+    AccountService -> AccountMapper : 解冻账户
+    note left : 将账户状态修改成激活状态
+    AccountMapper --> AccountService : 解冻账户成功
+    AccountService --> AccountController : 解冻账户成功
+    AccountController --> client : 解冻账户成功
+    deactivate AccountService
+end
+
+opt 删除用户/注销用户
+    client -> UserController : 用户信息
+    UserController -> UserService : 转发请求
+    activate UserService
+    alt 删除/注销用户成功
+        UserService -> UserMapper :  删除/注销用户
+        note left : 修改用户状态为已注销
+        UserMapper --> UserService : 返回信息
+        UserService -> AccountMapper : 删除/注销账户
+        note left : 修改账户状态为已注销
+        AccountMapper --> UserService : 返回信息
+        UserService --> UserController : 删除/注销账户成功
+        UserController --> client : 删除/注销账户成功
+    else 删除/注销用户失败
+        UserService -> UserMapper :  删除/注销用户
+        note left : 修改用户状态为已注销
+        UserMapper --> UserService : 返回信息
+        UserService -> AccountMapper : 删除/注销账户
+        note left : 修改账户状态为已注销
+        AccountMapper --> UserService : 返回信息
+        UserService -> UserService : 回滚操作
+        UserService --> UserController : 删除/注销账户失败
+        UserController --> client : 删除/注销账户失败
+    end
+end
+@enduml

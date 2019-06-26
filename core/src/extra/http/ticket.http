@@ -1,0 +1,28 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 凭证API测试
+
+### 新增凭证类型
+POST http://{{host}}:{{port}}/canteen/ticket
+Content-Type: application/json
+
+{
+  "ticketName":"退费凭证"
+}
+
+### 获得凭证
+GET http://{{host}}:{{port}}/canteen/ticket
+Content-Type: application/json
+
+{
+  "transType":"",
+  "starTime":"",
+  "endTime":"",
+  "acctId":"",
+  "ticketNo":"",
+  "departmentId":"",
+  "loadType":""
+}
+
+###

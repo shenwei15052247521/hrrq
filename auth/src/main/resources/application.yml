@@ -1,0 +1,195 @@
+
+
+####################
+#   profiles配置   #
+####################
+
+#   测试环境   #
+spring:
+  profiles: dev
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.44.122:3306/canteen?characterEncoding=utf-8&useSSL=false
+      username: jasmine
+      password: Jasmine1017@wyz
+  redis:
+    host: 47.105.74.250
+    database: 3
+    port: 6379
+    password: Jasmine1017@wyz
+---
+#   正式环境   #
+spring:
+  profiles: pro
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/canteen?characterEncoding=utf8&useSSL=false
+      username: smk
+      password: GoodLuck_SMK_2019
+  redis:
+    host: 127.0.0.1
+    database: 3
+    port: 6379
+    password: 123
+---
+##################
+#   App信息配置   #
+##################
+spring:
+  application:
+    name: AUTH_SERVER
+---
+#################
+#   服务器配置   #
+#################
+server:
+  servlet:
+    context-path: /auth
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-post-size: 0
+  port: 9001
+---
+####################
+#    Eureka配置    #
+####################
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://192.168.44.222:7000/eureka
+---
+#####################
+##   Security配置   #
+#####################
+#spring:
+#  security:
+#    user:
+#      name: user
+#      password: password
+#      roles: USER
+#---
+###############
+#   日志配置   #
+###############
+spring:
+  output:
+    ansi:
+      enabled: always
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+debug: true
+logging:
+  file:
+    max-size: 10MB
+  level:
+    root: info
+
+
+---
+######################
+#   数据库连接池配置   #
+######################
+spring:
+  datasource:
+    druid:
+      max-active: 10
+      initial-size: 5
+      min-idle: 2
+      max-wait: 60000
+      pool-prepared-statements: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /druid
+
+mybatis:
+  #  config-location: classpath:mappers/mybatis.xml
+  mapper-locations: classpath:mappers/*.xml
+  check-config-location: true
+  type-aliases-package: com.lanswon.auth.pojo
+  configuration:
+    jdbc-type-for-null: null
+    cache-enabled: false
+    multiple-result-sets-enabled: true
+    default-executor-type: reuse
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    default-statement-timeout: 3000
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: partial
+    auto-mapping-unknown-column-behavior: none
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    return-instance-for-empty-row: false
+    local-cache-scope: session
+
+pagehelper:
+  auto-dialect: true
+  close-conn: false
+  reasonable: true
+
+---
+##################
+#   NO_SQL配置   #
+##################
+
+#   Redis   #
+spring:
+  redis:
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+---
+###############
+#   AOP配置   #
+###############
+spring:
+  aop:
+    auto: true
+    proxy-target-class: false
+---
+######################
+#   缓存(cache)配置   #
+######################
+
+#   ehcache   #
+
+#spring:
+#  cache:
+#    type: ehcache
+#    ehcache:
+#      config: classpath:config/ehcache.xml
+
+---
+####################
+#   Actuator配置   #
+####################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: false
+---
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  server:
+    tomcat:
+      uri-encoding: UTF-8
+---

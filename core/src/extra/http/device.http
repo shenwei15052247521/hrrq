@@ -1,0 +1,44 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 设备API测试
+
+### 新增设备
+POST http://{{host}}:{{port}}/canteen/device
+Content-Type: application/json
+
+{
+  "type":"0",
+  "name":"测试1",
+  "ip":"192.168.52.1",
+  "port":"8080",
+  "location":"测试位置1"
+}
+
+###删除设备
+DELETE http://{{host}}:{{port}}/canteen/device/4f453994cf72439283136412ea8dafda
+Content-Type: application/json
+
+### 更新设备
+PUT http://{{host}}:{{port}}/canteen/device
+Content-Type: application/json
+
+{
+  "deviceId":"2bd2587cbbbc4912be7d72fda077f9f7",
+  "type":"0",
+  "name":"食堂设备[改]",
+  "ip":"192.168.0.1",
+  "port":"8080",
+  "location":"食堂东",
+  "status":"1"
+}
+
+### 获得所有设备
+GET http://{{host}}:{{port}}/canteen/device
+Content-Type: application/json
+
+### 根据id获得设备信息
+GET http://{{host}}:{{port}}/canteen/device/1d04650a7130438090ca73e0e5087bcc
+Content-Type: application/json
+
+###

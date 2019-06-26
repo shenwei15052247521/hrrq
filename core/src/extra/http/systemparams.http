@@ -1,0 +1,85 @@
+# 青州市民卡子系统-食堂应用
+# @author Jaswine
+# @version 1.0
+# 用户API测试
+
+
+### 新增系统参数
+POST http://{{host}}:{{port}}/canteen/sys
+Content-Type: application/json
+
+{
+  "rate":"0.003",
+  "validDefault":"50",
+  "validTemp":"30",
+  "purDaytop":"100",
+  "purTimetop":"20",
+  "timeStartBf":"8:00:00",
+  "timeEndBf":"9:00:00",
+  "amountBf":"10",
+  "timeStartLunch":"11:00:00",
+  "timeEndLunch":"13:00:00",
+  "amountLunch":"20",
+  "timeStartDinner":"17:00:00",
+  "timeEndDinner":"18:30:00",
+  "amountDinner":"15",
+  "timeStartOther":"14:00:00",
+  "timeEndOther":"16:00",
+  "amountOther":"30"
+}
+
+### 更新系统参数
+PUT http://{{host}}:{{port}}/canteen/sys
+Content-Type: application/json
+
+//{
+//  "paramId":"92a7221aca6d40598b5b241ac2d2d66a",
+//  "rate":"0.003",
+//  "validDefault":"50",
+//  "validTemp":"30",
+//  "purDaytop":"100",
+//  "purTimetop":"20",
+//  "timeStartBf":"8:00:00",
+//  "timeEndBf":"9:00:00",
+//  "amountBf":"10",
+//  "timeStartLunch":"11:00:00",
+//  "timeEndLunch":"13:00:00",
+//  "amountLunch":"20",
+//  "timeStartDinner":"17:00:00",
+//  "timeEndDinner":"18:30:00",
+//  "amountDinner":"15",
+//  "timeStartOther":"14:00:00",
+//  "timeEndOther":"16:00:00",
+//  "amountOther":"30"
+//}
+
+{
+  "paramId":"1",
+  "rate":"0.03",
+  "validDefault":"50",
+  "validTemp":"10",
+  "purDaytop":"100",
+  "purTimetop":"20",
+  "timeStartBf":"08:00:00",
+  "timeEndBf":"08:00:28",
+  "amountBf":"10",
+  "timeStartLunch":"08:00:28",
+  "timeEndLunch":"08:00:28",
+  "amountLunch":"10",
+  "timeStartDinner":"08:00:28",
+  "timeEndDinner":"16:34",
+  "amountDinner":"10",
+  "timeStartOther":"08:00:28",
+  "timeEndOther":"16:34",
+  "amountOther":"20"
+}
+
+### 获得系统参数信息
+GET http://{{host}}:{{port}}/canteen/sys
+Content-Type: application/json
+
+### 获得当前消费金额
+GET http://{{host}}:{{port}}/canteen/sys/defaultMoney
+Content-Type: application/json
+
+###

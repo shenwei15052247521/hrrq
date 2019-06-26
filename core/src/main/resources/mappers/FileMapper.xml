@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanswon.core.mapper.FileMapper">
+    <insert id="addFileInfo">
+        INSERT INTO face_info(id, uri, fk_face_id, createtime)
+        VALUE (#{faceInfo.id},#{faceInfo.uri},#{faceInfo.fkFaceId},sysdate())
+    </insert>
+    <update id="updateFaceInfo">
+        UPDATE face_info
+        SET createtime = sysdate()
+        WHERE fk_face_id = #{faceid}
+    </update>
+
+    <select id="getFileNameList" resultType="java.lang.String">
+        SELECT uri
+        FROM face_info
+        WHERE UNIX_TIMESTAMP(createtime) &gt;= ${date}
+    </select>
+</mapper>
