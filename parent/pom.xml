@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
 
         <auth.version>3.4.0</auth.version>
-        <apache.commons.io.version>2.6</apache.commons.io.version>
+        <apache.commons.io.version>2.7</apache.commons.io.version>
         <commons.net.version>3.3</commons.net.version>
         <jcommons.version>1.0.7</jcommons.version>
         <jweb.version>1.0.0</jweb.version>
@@ -36,7 +36,7 @@
         <spring.security.version>4.2.6.RELEASE</spring.security.version>
 
         <apache.httpclient.version>4.5.6</apache.httpclient.version>
-        <apache.io.version>2.6</apache.io.version>
+        <apache.io.version>2.7</apache.io.version>
         <apache.lang3.version>3.8.1</apache.lang3.version>
         <zxing.version>3.3.3</zxing.version>
         <sunMail.version>1.6.1</sunMail.version>
