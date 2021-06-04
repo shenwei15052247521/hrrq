@@ -35,7 +35,7 @@
 
         <spring.security.version>4.2.6.RELEASE</spring.security.version>
 
-        <apache.httpclient.version>4.5.6</apache.httpclient.version>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
         <apache.io.version>2.6</apache.io.version>
         <apache.lang3.version>3.8.1</apache.lang3.version>
         <zxing.version>3.3.3</zxing.version>
