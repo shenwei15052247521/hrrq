@@ -25,7 +25,7 @@
         <jcommons.version>1.0.7</jcommons.version>
         <jweb.version>1.0.0</jweb.version>
         <lombok.version>1.18.4</lombok.version>
-        <mysql.version>5.1.46</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <SpringBoot.version>2.0.4.RELEASE</SpringBoot.version>
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
         <SpringBootDruidStarter.version>1.1.10</SpringBootDruidStarter.version>
