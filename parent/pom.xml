@@ -21,7 +21,7 @@
 
         <auth.version>3.4.0</auth.version>
         <apache.commons.io.version>2.6</apache.commons.io.version>
-        <commons.net.version>3.3</commons.net.version>
+        <commons.net.version>3.9.0</commons.net.version>
         <jcommons.version>1.0.7</jcommons.version>
         <jweb.version>1.0.0</jweb.version>
         <lombok.version>1.18.4</lombok.version>
